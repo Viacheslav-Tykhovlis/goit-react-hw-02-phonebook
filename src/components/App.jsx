@@ -4,7 +4,13 @@ import { nanoid } from 'nanoid';
 
 export class App extends React.Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: '',
     name: '',
     number: '',
   };
@@ -37,7 +43,17 @@ export class App extends React.Component {
     this.setState({ name: '' });
   };
 
+  changeFilter = evt => {
+    this.setState({ filter: evt.currentTarget.value });
+  };
+
   render() {
+    const normalaseFilter = this.state.filter.toLowerCase();
+
+    const filtredContacts = this.state.contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalaseFilter)
+    );
+
     return (
       <div className={css.mainDiv}>
         <h2>Phonebook</h2>
@@ -74,8 +90,17 @@ export class App extends React.Component {
         </form>
 
         <h2>Contacts</h2>
+        <label>
+          Find contact by name <br />
+          <input
+            type="text"
+            value={this.state.filter}
+            onChange={this.changeFilter}
+          />
+        </label>
+
         <ul>
-          {this.state.contacts.map(contact => {
+          {filtredContacts.map(contact => {
             return (
               <li key={contact.id} className={css.contactItem}>
                 <p className={css.name}>{contact.name}</p>
