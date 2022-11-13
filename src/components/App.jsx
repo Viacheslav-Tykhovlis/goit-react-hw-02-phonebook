@@ -17,9 +17,20 @@ export class App extends React.Component {
   };
 
   handleSubmit = contact => {
+    if (this.isSaved(contact)) {
+      return alert(`${contact.name} is already is contacts `);
+    }
+
     this.setState(prevState => ({
       contacts: [...prevState.contacts, contact],
     }));
+  };
+
+  isSaved = user => {
+    const normalaseUser = user.name.toLowerCase();
+    return this.state.contacts.find(
+      contact => contact.name.toLowerCase() === normalaseUser
+    );
   };
 
   changeFilter = evt => {
