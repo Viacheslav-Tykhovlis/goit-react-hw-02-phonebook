@@ -43,3 +43,19 @@
 .btnContact:active {
   box-shadow: inset 0 0 5px grey;
 }
+
+.contactItem {
+  margin-bottom: 15px;
+}
+
+.name {
+  display: inline;
+  margin-right: 15px;
+  text-decoration: underline;
+}
+
+.number {
+  padding: 4px;
+  border-radius: 10px;
+  box-shadow: 0 0 3px grey;
+}

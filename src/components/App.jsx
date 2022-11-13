@@ -6,6 +6,7 @@ export class App extends React.Component {
   state = {
     contacts: [],
     name: '',
+    number: '',
   };
   // userId = nanoid(10);
 
@@ -15,12 +16,18 @@ export class App extends React.Component {
     });
   };
 
+  getNumber = evt => {
+    this.setState({
+      number: evt.target.value,
+    });
+  };
+
   addContact = evt => {
     evt.preventDefault();
     this.setState(prevState => ({
       contacts: [
         ...prevState.contacts,
-        { name: this.state.name, id: nanoid(10) },
+        { name: this.state.name, id: nanoid(10), number: this.state.number },
       ],
     }));
     this.resetName();
@@ -48,6 +55,19 @@ export class App extends React.Component {
               onChange={this.getName}
             />
           </label>
+          <label className={css.labelName}>
+            Number:
+            <br />
+            <input
+              className={css.inputName}
+              type="tel"
+              name="number"
+              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              required
+              onChange={this.getNumber}
+            />
+          </label>
           <button type="submit" className={css.btnContact}>
             Add contact
           </button>
@@ -56,7 +76,12 @@ export class App extends React.Component {
         <h2>Contacts</h2>
         <ul>
           {this.state.contacts.map(contact => {
-            return <li key={contact.id}>{contact.name}</li>;
+            return (
+              <li key={contact.id} className={css.contactItem}>
+                <p className={css.name}>{contact.name}</p>
+                <span className={css.number}>{contact.number}</span>
+              </li>
+            );
           })}
         </ul>
       </div>
