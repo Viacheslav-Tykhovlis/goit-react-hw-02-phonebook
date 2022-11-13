@@ -37,6 +37,12 @@ export class App extends React.Component {
     this.setState({ filter: evt.currentTarget.value });
   };
 
+  deleteContact = userId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(user => user.id !== userId),
+    }));
+  };
+
   render() {
     const normalaseFilter = this.state.filter.toLowerCase();
 
@@ -55,7 +61,10 @@ export class App extends React.Component {
         <Filter onChange={this.changeFilter} value={this.state.filter} />
 
         <ContactList>
-          <Contact contactList={filtredContacts} />
+          <Contact
+            contactList={filtredContacts}
+            onDeleteContact={this.deleteContact}
+          />
         </ContactList>
       </div>
     );
