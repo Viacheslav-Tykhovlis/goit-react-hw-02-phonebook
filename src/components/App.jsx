@@ -43,13 +43,15 @@ export class App extends React.Component {
     }));
   };
 
-  render() {
+  filtredContacts = () => {
     const normalaseFilter = this.state.filter.toLowerCase();
 
-    const filtredContacts = this.state.contacts.filter(contact =>
+    return this.state.contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalaseFilter)
     );
+  };
 
+  render() {
     return (
       <div className={css.mainDiv}>
         <h2>Phonebook</h2>
@@ -62,7 +64,7 @@ export class App extends React.Component {
 
         <ContactList>
           <Contact
-            contactList={filtredContacts}
+            contactList={this.filtredContacts()}
             onDeleteContact={this.deleteContact}
           />
         </ContactList>
